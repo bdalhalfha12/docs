@@ -26,7 +26,7 @@ export default function search () {
     languages,
     versions,
     nonEnterpriseDefaultVersion
-  } = JSON.parse(document.getElementById('search-options').text)
+  } = JSON.parse(document.getElementById('expose').text).searchOptions
   version = deriveVersionFromPath(versions, nonEnterpriseDefaultVersion)
   language = deriveLanguageCodeFromPath(languages)
 
@@ -261,8 +261,8 @@ function tmplSearchResult ({ url, breadcrumbs, heading, title, content }) {
       { href: url, class: 'no-underline' },
       div(
         { class: 'search-result-breadcrumbs d-block text-gray-dark opacity-60 text-small pb-1' },
-        // Remove redundant title from the end of breadcrumbs
-        markify((breadcrumbs || '').replace(` / ${title}`, ''))
+        // Breadcrumbs in search records don't include the page title
+        markify(breadcrumbs || '')
       ),
       div(
         { class: 'search-result-title d-block h4-mktg text-gray-dark' },
